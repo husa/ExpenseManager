@@ -4,7 +4,7 @@ define(['zepto', 'underscore', 'backbone', 'backbone.marionette', 'text!template
 
     return Marionette.ItemView.extend({
 
-        tagName : 'tr',
+        tagName : 'div',
 
         className : 'expense-item',
 

@@ -154,34 +154,75 @@
 #expense-list {
   width: 80%;
   max-width: 800px;
-  margin: 0 auto;
+  margin: 10px auto;
   border-spacing: 0;
   border-collapse: collapse;
 }
 #expense-list .expense-item {
-  padding: 10px 0;
-}
-#expense-list .expense-item:nth-child(odd) {
+  padding: 10px 15px;
+  margin: 5px 0 0 0;
+  display: inline-block;
+  width: 350px;
+  height: 200px;
   background-color: #fcfcfc;
 }
-#expense-list .expense-item:hover .delete {
-  opacity: 1;
-}
-#expense-list .expense-item td {
-  padding: 10px 5px;
+#expense-list .expense-item:nth-child(odd) {
+  margin-right: 15px;
 }
 #expense-list .expense-item .amount {
-  font-size: 24pt;
+  width: 55%;
+  font-size: 2.5em;
+  float: left;
 }
-#expense-list .expense-item .delete {
-  opacity: 0;
+#expense-list .expense-item .category-icon {
+  float: left;
+  width: 30%;
+  height: 45%;
+  margin: -10px 0 0 0;
 }
-#expense-list .expense-item .delete .button {
-  background-color: #E9545A;
+#expense-list .expense-item .options-wrapper {
+  float: right;
+  width: 25px;
+  height: 14px;
+  overflow: hidden;
 }
-#expense-list .expense-item .delete .button:hover {
-  background-color: #ef8186;
-  box-shadow: none;
+#expense-list .expense-item .options-wrapper .arrow {
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 15px solid grey;
+}
+#expense-list .expense-item .options-wrapper:hover {
+  height: auto;
+  overflow: visible;
+}
+#expense-list .expense-item .options-wrapper .options {
+  width: 80px;
+  position: relative;
+  top: 5px;
+  left: 10px;
+  border: 1px solid #cfcfcf;
+  background: #fcfcfc;
+  cursor: pointer;
+}
+#expense-list .expense-item .options-wrapper .option {
+  padding: 2px 4px;
+}
+#expense-list .expense-item .options-wrapper .option:hover {
+  background: #efefef;
+}
+#expense-list .expense-item .title {
+  float: left;
+  width: 100%;
+  min-height: 3em;
+  margin: 0.25em 0;
+}
+#expense-list .expense-item .date {
+  float: left;
+  width: 100%;
+  bottom: 0;
+  text-align: right;
 }
 #category-list {
   width: 80%;

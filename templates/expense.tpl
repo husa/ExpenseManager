@@ -1,19 +1,13 @@
-<td class="amount"><%- amount %></td>
-<td class="category">
-    <div class="category-icon"
-         style="background-color: <%= category.color %>"
-         data-title="<%= category.title %>"></div>
-</td>
-
-<td class="title"><%- title %></td>
-<td class="date"><%- date %></td>
-<td class="delete">
-    <button class="button">
-        <div class="button-icon">
-            <svg viewBox="0 0 32 32">
-                <use xlink:href="#close"></use>
-            </svg>
-        </div>
-        delete
-    </button>
-</td>
+<div class="amount"><%- amount %></div>
+<div class="category-icon"
+     style="background-color: <%= category.color %>"
+     data-title="<%= category.title %>"></div>
+<div class="options-wrapper">
+    <div class="arrow"></div>
+    <div class="options">
+        <div class="option edit">Edit</div>
+        <div class="option delete">Delete</div>
+    </div>
+</div>
+<div class="title"><%- title %></div>
+<div class="date"><%- date %></div>
