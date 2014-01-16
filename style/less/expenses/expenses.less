@@ -1,0 +1,93 @@
+#expenses-content {
+    #add-expense-wrapper {
+        clear: both;
+        overflow: auto;
+
+        #button-add-expense {
+            margin: 10px;
+            float: right;
+        }
+
+        #add-expense-container {}
+    }
+
+    #expenses-list {
+        width: 80%;
+        max-width: 800px;
+        margin: 10px auto;
+        border-spacing: 0;
+        border-collapse: collapse;
+
+        .expense-item {
+            padding: 10px 15px;
+            margin: 5px 0 0 0;
+            display: inline-block;
+            width: 350px;
+            height: 200px;
+            background-color: #fcfcfc;
+
+            &:nth-child(odd){
+                margin-right: 15px;
+            }
+            .amount {
+                width: 55%;
+                font-size: 2.5em;
+                float: left;
+            }
+            .category-icon{
+                float: left;
+                width: 30%;
+                height: 45%;
+                margin: -10px 0 0 0;
+            }
+            .options-wrapper{
+                float: right;
+                width: 25px;
+                height: 14px;
+                overflow: hidden;
+
+                .arrow{
+                    width: 0;
+                    height: 0;
+                    border-left: 10px solid transparent;
+                    border-right: 10px solid transparent;
+                    border-top: 15px solid grey;
+                }
+
+                &:hover{
+                    height: auto;
+                    overflow: visible;
+                }
+
+                .options{
+                    width: 80px;
+                    position: relative;
+                    top: 5px;
+                    left: 10px;
+                    border: 1px solid #cfcfcf;
+                    background: #fcfcfc;
+                    cursor: pointer;
+                }
+                .option{
+                    padding: 2px 4px;
+                    &:hover{
+                        background: #efefef;
+                    }
+                }
+            }
+            .title{
+                float: left;
+                width: 100%;
+                min-height: 3em;
+                margin: 0.25em 0;
+            }
+            .date {
+                float: left;
+                width: 100%;
+                bottom: 0;
+                text-align: right;
+            }
+        }
+    }
+}
+

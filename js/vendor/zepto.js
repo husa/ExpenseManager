@@ -1,4 +1,4 @@
-/* Zepto v1.1.2 - zepto event ajax form ie - zeptojs.com/license */
+/* Zepto v1.1.2-2-g8fa1fba - zepto event ajax data callbacks deferred - zeptojs.com/license */
 
 
 var Zepto = (function() {
@@ -1478,73 +1478,308 @@ window.$ === undefined && (window.$ = Zepto)
 })(Zepto)
 
 ;(function($){
-  $.fn.serializeArray = function() {
-    var result = [], el
-    $([].slice.call(this.get(0).elements)).each(function(){
-      el = $(this)
-      var type = el.attr('type')
-      if (this.nodeName.toLowerCase() != 'fieldset' &&
-        !this.disabled && type != 'submit' && type != 'reset' && type != 'button' &&
-        ((type != 'radio' && type != 'checkbox') || this.checked))
-        result.push({
-          name: el.attr('name'),
-          value: el.val()
-        })
-    })
-    return result
-  }
+  var data = {}, dataAttr = $.fn.data, camelize = $.camelCase,
+    exp = $.expando = 'Zepto' + (+new Date()), emptyArray = []
 
-  $.fn.serialize = function(){
-    var result = []
-    this.serializeArray().forEach(function(elm){
-      result.push(encodeURIComponent(elm.name) + '=' + encodeURIComponent(elm.value))
-    })
-    return result.join('&')
-  }
-
-  $.fn.submit = function(callback) {
-    if (callback) this.bind('submit', callback)
-    else if (this.length) {
-      var event = $.Event('submit')
-      this.eq(0).trigger(event)
-      if (!event.isDefaultPrevented()) this.get(0).submit()
+  // Get value from node:
+  // 1. first try key as given,
+  // 2. then try camelized key,
+  // 3. fall back to reading "data-*" attribute.
+  function getData(node, name) {
+    var id = node[exp], store = id && data[id]
+    if (name === undefined) return store || setData(node)
+    else {
+      if (store) {
+        if (name in store) return store[name]
+        var camelName = camelize(name)
+        if (camelName in store) return store[camelName]
+      }
+      return dataAttr.call($(node), name)
     }
-    return this
   }
 
+  // Store value under camelized key on node
+  function setData(node, name, value) {
+    var id = node[exp] || (node[exp] = ++$.uuid),
+      store = data[id] || (data[id] = attributeData(node))
+    if (name !== undefined) store[camelize(name)] = value
+    return store
+  }
+
+  // Read all "data-*" attributes from a node
+  function attributeData(node) {
+    var store = {}
+    $.each(node.attributes || emptyArray, function(i, attr){
+      if (attr.name.indexOf('data-') == 0)
+        store[camelize(attr.name.replace('data-', ''))] =
+          $.zepto.deserializeValue(attr.value)
+    })
+    return store
+  }
+
+  $.fn.data = function(name, value) {
+    return value === undefined ?
+      // set multiple values via object
+      $.isPlainObject(name) ?
+        this.each(function(i, node){
+          $.each(name, function(key, value){ setData(node, key, value) })
+        }) :
+        // get value from first element
+        this.length == 0 ? undefined : getData(this[0], name) :
+      // set value on all elements
+      this.each(function(){ setData(this, name, value) })
+  }
+
+  $.fn.removeData = function(names) {
+    if (typeof names == 'string') names = names.split(/\s+/)
+    return this.each(function(){
+      var id = this[exp], store = id && data[id]
+      if (store) $.each(names || store, function(key){
+        delete store[names ? camelize(this) : key]
+      })
+    })
+  }
+
+  // Generate extended `remove` and `empty` functions
+  ;['remove', 'empty'].forEach(function(methodName){
+    var origFn = $.fn[methodName]
+    $.fn[methodName] = function() {
+      var elements = this.find('*')
+      if (methodName === 'remove') elements = elements.add(this)
+      elements.removeData()
+      return origFn.call(this)
+    }
+  })
 })(Zepto)
 
 ;(function($){
-  // __proto__ doesn't exist on IE<11, so redefine
-  // the Z function to use object extension instead
-  if (!('__proto__' in {})) {
-    $.extend($.zepto, {
-      Z: function(dom, selector){
-        dom = dom || []
-        $.extend(dom, $.fn)
-        dom.selector = selector || ''
-        dom.__Z = true
-        return dom
-      },
-      // this is a kludge but works
-      isZ: function(object){
-        return $.type(object) === 'array' && '__Z' in object
+  // Create a collection of callbacks to be fired in a sequence, with configurable behaviour
+  // Option flags:
+  //   - once: Callbacks fired at most one time.
+  //   - memory: Remember the most recent context and arguments
+  //   - stopOnFalse: Cease iterating over callback list
+  //   - unique: Permit adding at most one instance of the same callback
+  $.Callbacks = function(options) {
+    options = $.extend({}, options)
+
+    var memory, // Last fire value (for non-forgettable lists)
+        fired,  // Flag to know if list was already fired
+        firing, // Flag to know if list is currently firing
+        firingStart, // First callback to fire (used internally by add and fireWith)
+        firingLength, // End of the loop when firing
+        firingIndex, // Index of currently firing callback (modified by remove if needed)
+        list = [], // Actual callback list
+        stack = !options.once && [], // Stack of fire calls for repeatable lists
+        fire = function(data) {
+          memory = options.memory && data
+          fired = true
+          firingIndex = firingStart || 0
+          firingStart = 0
+          firingLength = list.length
+          firing = true
+          for ( ; list && firingIndex < firingLength ; ++firingIndex ) {
+            if (list[firingIndex].apply(data[0], data[1]) === false && options.stopOnFalse) {
+              memory = false
+              break
+            }
+          }
+          firing = false
+          if (list) {
+            if (stack) stack.length && fire(stack.shift())
+            else if (memory) list.length = 0
+            else Callbacks.disable()
+          }
+        },
+
+        Callbacks = {
+          add: function() {
+            if (list) {
+              var start = list.length,
+                  add = function(args) {
+                    $.each(args, function(_, arg){
+                      if (typeof arg === "function") {
+                        if (!options.unique || !Callbacks.has(arg)) list.push(arg)
+                      }
+                      else if (arg && arg.length && typeof arg !== 'string') add(arg)
+                    })
+                  }
+              add(arguments)
+              if (firing) firingLength = list.length
+              else if (memory) {
+                firingStart = start
+                fire(memory)
+              }
+            }
+            return this
+          },
+          remove: function() {
+            if (list) {
+              $.each(arguments, function(_, arg){
+                var index
+                while ((index = $.inArray(arg, list, index)) > -1) {
+                  list.splice(index, 1)
+                  // Handle firing indexes
+                  if (firing) {
+                    if (index <= firingLength) --firingLength
+                    if (index <= firingIndex) --firingIndex
+                  }
+                }
+              })
+            }
+            return this
+          },
+          has: function(fn) {
+            return !!(list && (fn ? $.inArray(fn, list) > -1 : list.length))
+          },
+          empty: function() {
+            firingLength = list.length = 0
+            return this
+          },
+          disable: function() {
+            list = stack = memory = undefined
+            return this
+          },
+          disabled: function() {
+            return !list
+          },
+          lock: function() {
+            stack = undefined;
+            if (!memory) Callbacks.disable()
+            return this
+          },
+          locked: function() {
+            return !stack
+          },
+          fireWith: function(context, args) {
+            if (list && (!fired || stack)) {
+              args = args || []
+              args = [context, args.slice ? args.slice() : args]
+              if (firing) stack.push(args)
+              else fire(args)
+            }
+            return this
+          },
+          fire: function() {
+            return Callbacks.fireWith(this, arguments)
+          },
+          fired: function() {
+            return !!fired
+          }
+        }
+
+    return Callbacks
+  }
+})(Zepto)
+
+;(function($){
+  var slice = Array.prototype.slice
+
+  function Deferred(func) {
+    var tuples = [
+          // action, add listener, listener list, final state
+          [ "resolve", "done", $.Callbacks({once:1, memory:1}), "resolved" ],
+          [ "reject", "fail", $.Callbacks({once:1, memory:1}), "rejected" ],
+          [ "notify", "progress", $.Callbacks({memory:1}) ]
+        ],
+        state = "pending",
+        promise = {
+          state: function() {
+            return state
+          },
+          always: function() {
+            deferred.done(arguments).fail(arguments)
+            return this
+          },
+          then: function(/* fnDone [, fnFailed [, fnProgress]] */) {
+            var fns = arguments
+            return Deferred(function(defer){
+              $.each(tuples, function(i, tuple){
+                var fn = $.isFunction(fns[i]) && fns[i]
+                deferred[tuple[1]](function(){
+                  var returned = fn && fn.apply(this, arguments)
+                  if (returned && $.isFunction(returned.promise)) {
+                    returned.promise()
+                      .done(defer.resolve)
+                      .fail(defer.reject)
+                      .progress(defer.notify)
+                  } else {
+                    var context = this === promise ? defer.promise() : this,
+                        values = fn ? [returned] : arguments
+                    defer[tuple[0] + "With"](context, values)
+                  }
+                })
+              })
+              fns = null
+            }).promise()
+          },
+
+          promise: function(obj) {
+            return obj != null ? $.extend( obj, promise ) : promise
+          }
+        },
+        deferred = {}
+
+    $.each(tuples, function(i, tuple){
+      var list = tuple[2],
+          stateString = tuple[3]
+
+      promise[tuple[1]] = list.add
+
+      if (stateString) {
+        list.add(function(){
+          state = stateString
+        }, tuples[i^1][2].disable, tuples[2][2].lock)
       }
+
+      deferred[tuple[0]] = function(){
+        deferred[tuple[0] + "With"](this === deferred ? promise : this, arguments)
+        return this
+      }
+      deferred[tuple[0] + "With"] = list.fireWith
     })
+
+    promise.promise(deferred)
+    if (func) func.call(deferred, deferred)
+    return deferred
   }
 
-  // getComputedStyle shouldn't freak out when called
-  // without a valid element as argument
-  try {
-    getComputedStyle(undefined)
-  } catch(e) {
-    var nativeGetComputedStyle = getComputedStyle;
-    window.getComputedStyle = function(element){
-      try {
-        return nativeGetComputedStyle(element)
-      } catch(e) {
-        return null
+  $.when = function(sub) {
+    var resolveValues = slice.call(arguments),
+        len = resolveValues.length,
+        i = 0,
+        remain = len !== 1 || (sub && $.isFunction(sub.promise)) ? len : 0,
+        deferred = remain === 1 ? sub : Deferred(),
+        progressValues, progressContexts, resolveContexts,
+        updateFn = function(i, ctx, val){
+          return function(value){
+            ctx[i] = this
+            val[i] = arguments.length > 1 ? slice.call(arguments) : value
+            if (val === progressValues) {
+              deferred.notifyWith(ctx, val)
+            } else if (!(--remain)) {
+              deferred.resolveWith(ctx, val)
+            }
+          }
+        }
+
+    if (len > 1) {
+      progressValues = new Array(len)
+      progressContexts = new Array(len)
+      resolveContexts = new Array(len)
+      for ( ; i < len; ++i ) {
+        if (resolveValues[i] && $.isFunction(resolveValues[i].promise)) {
+          resolveValues[i].promise()
+            .done(updateFn(i, resolveContexts, resolveValues))
+            .fail(deferred.reject)
+            .progress(updateFn(i, progressContexts, progressValues))
+        } else {
+          --remain
+        }
       }
     }
+    if (!remain) deferred.resolveWith(resolveContexts, resolveValues)
+    return deferred.promise()
   }
+
+  $.Deferred = Deferred
 })(Zepto)

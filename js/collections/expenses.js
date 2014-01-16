@@ -1,6 +1,8 @@
-define(['backbone', 'models/expense', 'backbone.localStorage'],
-    function(Backbone, Expense) {
-
+define([
+    'backbone',
+    'models/expense',
+    'backbone.localStorage'
+], function(Backbone, Expense) {
     'use strict';
 
     var ExpensesList = Backbone.Collection.extend({
@@ -20,6 +22,10 @@ define(['backbone', 'models/expense', 'backbone.localStorage'],
             });
         },
 
+        // sort all expenses by date by default
+        comparator : function(item) {
+            return -new Date(item.get('date'));
+        }
     });
 
     return new ExpensesList();
