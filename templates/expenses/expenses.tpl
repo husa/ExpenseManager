@@ -1,4 +1,4 @@
-<div id="expenses-content">
+<div id="expenses-content" class="container">
     <div id="add-expense-wrapper">
         <button id="button-add-expense" class="button">
             <div class="button-icon">
@@ -10,5 +10,5 @@
         </button>
         <div id="add-expense-container"></div>
     </div>
-    <div id="expenses-list"></div>
+    <div id="expenses-list" class="row"></div>
 </div>

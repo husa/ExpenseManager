@@ -15,7 +15,7 @@ define([
 
         tagName : 'div',
 
-        className : 'expense-item',
+        className : 'col-xs-12 col-sm-6 col-md-3',
 
         template : _.template( Template ),
 
