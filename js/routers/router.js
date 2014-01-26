@@ -1,18 +1,17 @@
-define(['backbone'], function(Backbone) {
+define([
+    'backbone.marionette',
+    'controllers/controller'
+], function(Marionette, Controller) {
     'use strict';
 
-    var AppRouter = Backbone.Router.extend({
+    return Marionette.AppRouter.extend({
 
-        routes : {
-            '*section' : 'gotoSection'
-        },
+        controller : Controller,
 
-        gotoSection : function(section) {
-            Backbone.Events.trigger('deliverSection', section);
+        appRoutes  : {
+            '*section' : 'deliverSection'
         }
-      });
-
-    return AppRouter;
+    });
 });
 
 

@@ -9,6 +9,8 @@ var require = {
         'backbone.marionette'   : 'vendor/backbone.marionette',
         'backbone.localStorage' : 'vendor/backbone.localStorage',
         'text'                  : 'vendor/require.text',
+        'fancy.select'          : 'vendor/fancySelect',
+        'pikaday'               : 'vendor/pikaday',
         'templates'             : '../templates'
     },
 
@@ -27,6 +29,10 @@ var require = {
             deps : ['zepto', 'underscore', 'backbone'],
             exports: 'Marionette'
         },
-        'backbone.localStorage' : ['backbone']
+        'backbone.localStorage' : ['backbone'],
+        'fancy.select' : {
+            deps : ['zepto'],
+            exports : '$.fn.fancySelect'
+        }
     }
 };

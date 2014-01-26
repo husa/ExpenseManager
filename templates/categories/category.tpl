@@ -1,9 +1,9 @@
-<td class="color">
+<div class="color">
     <div class="category-icon" style="background-color: <%= color %>"></div>
-</td>
-<td class="title"><%- title %></td>
+</div>
+<div class="title"><%- title %></div>
 
-<td class="delete">
+<div class="delete">
     <button class="button">
         <div class="button-icon">
             <svg viewBox="0 0 32 32">
@@ -12,4 +12,4 @@
         </div>
         delete
     </button>
-</td>
+</div>

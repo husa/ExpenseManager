@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Raleway:400,700);
+@import url(http://fonts.googleapis.com/css?family=Raleway:400,100,700);
 
 @import 'vars/colors';
 @import 'vars/box';
@@ -10,52 +10,40 @@
 @import 'menu';
 @import 'content';
 
+@import '../../js/vendor/fancySelect.css';
+@import '../../js/vendor/pikaday.css';
+
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
 body {
-    font-family: 'Raleway', sans-serif;
 
     margin: 0;
     padding: 0;
     outline: none;
-    background-color: #F6F6F6;
+    background-color: #f2f2f2;
     overflow: hidden;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 1em;
+    color: #444;
 }
 
-// tooltips
-*[data-title] {
-    position: relative;
-
-    &:after, &:before {
-        visibility: hidden;
-        opacity: 0;
-        font-family: Helvetica, Arial, sans-serif;
-        font-size: 12pt;
-        bottom: 100%;
-
-        .transition(.2s);
-    }
-
-    &:after {
-        content: attr(data-title);
-        position: absolute;
-        left: 2px;
-        margin-bottom: 12px;
-        background: rgba(0,0,0,.7);
-        color: #fff;
-        padding: 2px 4px;
-        white-space: nowrap;
-        border-radius: 2px;
-    }
-
-    &:before {
-        content: ' ';
-        position: absolute;
-        left: 6px;
-        border: solid 6px transparent;
-        border-top-color: rgba(0,0,0,.7);
-    }
-
-    &:hover:after, &:hover:before {
-        visibility: visible;
-        opacity: 1;
-    };
+.icon{
+    display: inline-block;
+    vertical-align: middle;
+    width: 1em;
+    height: 1em;
+}
+.icon-2x:extend(.icon){
+    width: 1.5em;
+    height: 1.5em;
+}
+.icon-3x:extend(.icon){
+    width: 2em;
+    height: 2em;
 }

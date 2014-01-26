@@ -7,7 +7,9 @@ module.exports = function(grunt) {
     less : {
         development : {
             options: {
-               paths: ["style/less"]
+                compress          : true,
+                sourceMap         : true,
+                sourceMapFilename : 'main.css.map'
             },
             files: {
                 "style/main.css": "style/less/main.less"
@@ -33,15 +35,16 @@ module.exports = function(grunt) {
         all : {
             options : {
                 ignores : ['js/vendor/*', 'js/config.js'],
-                undef: true,
-                unused: true,
-                newcap : false,
-                debug : true,
+                undef   : true,
+                unused  : true,
+                newcap  : false,
+                debug   : true,
                 globals : {
-                    require : true,
-                    define : false,
-                    console : false,
-                    window : false
+                    require    : true,
+                    define     : false,
+                    console    : false,
+                    window     : false,
+                    document   : false
                 }
             },
             files : {

@@ -23,8 +23,7 @@ To start coding type in terminal/cmd
 ```
 grunt
 ```
-This will start local server, and start watching for any changes in .less files to compile output css,
-I will add JS Hint live hinting soon.
+This will start local server, and start watching for any changes in .less files to compile output css, lint all .js files.
 
 Now when Grunt is running open your browser and navigatte to
 
@@ -42,8 +41,8 @@ That's it, now play around with it.
 
 Tutorials on how to fork repository or create a pull request you can easily find on the internet.
 
-Also, feel free to open issues [here on github](https://github.com/husa/ExpenseManager/issues "issue list").
-Probably later we'll move to [Trello](https://trello.com/).
+Also, if you found a bug or have an interesting idea, feel free to open an issue [here on github](https://github.com/husa/ExpenseManager/issues "issue list").
+You can see what we're working on [here on Trello](https://trello.com/expensemanager).
 
 
 
