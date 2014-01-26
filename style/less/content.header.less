@@ -1,5 +1,50 @@
 #content-header {
+    position: relative;
+    border-bottom: solid 1px #aaa;
 
+    #menu-open-button {
+        @media (max-width: @screen-desktop) {
+            display: block;
+        }
+
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 60px;
+        height: 100%;
+        padding: 14px;
+        border: none;
+        background: none;
+        z-index: 101;
+
+        &.opened svg{
+            fill: #fff !important;
+        }
+
+        svg {
+            fill: #323544;
+            pointer-events: none;
+        }
+    }
+
+    .logo {
+        display: inline-block;
+        font-family: 'Raleway', sans-serif;
+        font-weight: 400;
+        margin: 0 20px;
+        line-height: 60px;
+        color: #323544;
+
+        sub {
+            font-size: .5em;
+            font-family: monospace;
+        }
+
+        @media (max-width: @screen-desktop) {
+            display: none;
+        }
+    }
     .button {
         margin: 10px;
         float: right;

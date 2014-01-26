@@ -1,8 +1,23 @@
-#main-menu {
+#main-menu-region {
     background : @color-menu-background;
     padding-top: @menu-header-height;
     .box-sizing(border-box);
     .user-select(none);
+
+    @media (max-width: @screen-desktop) {
+        position: absolute;
+        margin-left: -200px;
+        z-index: 100;
+        transition: 300ms ease;
+
+        &.menu-closed {
+            margin-left: -200px;
+        }
+
+        &.menu-open {
+            margin-left: 0;
+        }
+    }
 
     #menu-header, #menu-footer {
         position: absolute;
@@ -14,6 +29,8 @@
         top:0;
         height: @menu-header-height;
         background: @color-menu-header-background;
+        background: none;
+        pointer-events: none;
     }
 
     #menu-footer {
@@ -26,6 +43,7 @@
 
         color: @color-menu-text;
         text-transform: uppercase;
+        font-family: 'Raleway', sans-serif;
         font-size: 14pt;
         font-weight: bold;
 
@@ -85,8 +103,12 @@
                         right: 0;
 
                         border: solid 12px rgba(0,0,0,0);
-                        border-right-color: #F6F6F6;
+                        border-right-color: #F2F2F2;
                         background: none;
+
+                         @media (max-width: @screen-desktop) {
+                            display: none;
+                        }
                     }
                 }
             }

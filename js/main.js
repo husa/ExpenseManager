@@ -8,15 +8,15 @@ window.GenerateData = function(count) {
     ], function(_, Chance, Expenses, Categories){
         var chance = new Chance(),
             category;
-
+        console.log(Categories);
         for (var i = 0; i < count; i++) {
             category = _.sample(Categories.models);
 
             Expenses.create({
-                title    : chance.word(),
+                title    : chance.word({ length: (Math.random()*7 + 5)|0}),
                 amount   : chance.natural({max: 1000}),
                 category : category.toJSON(),
-                date : (new Date()).toJSON()
+                date     : (new Date()).toDateString()
             });
         }
     });

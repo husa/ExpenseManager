@@ -2,8 +2,14 @@
 <html>
 <head>
     <title>Expense Manager</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="style/main.css" />
+
 </head>
+
+<body>
 
 <svg id="svg-source" height="0" version="1.1"
   xmlns="http://www.w3.org/2000/svg" style="position:absolute; margin-left: -100%"
@@ -1018,45 +1024,43 @@
   </g>
 </svg>
 
-
-<body>
     <div id="main-page">
-        <div id="main-menu">
-            <div id="menu-header">
-                icon
-            </div>
+        <div id="main-menu-region">
+            <div id="main-menu">
 
-            <div id="menu-items">
-                <menu>
-                    <li id="menu-item-expenses" class="menu-item">
-                        <div class="menu-item-icon">
-                            <svg viewBox="0 0 32 32">
-                                <use xlink:href="#list"></use>
-                            </svg>
-                        </div>
-                        <a href="#/expenses">expenses</a>
-                    </li>
-                    <li id="menu-item-categories" class="menu-item">
-                        <div class="menu-item-icon">
-                            <svg viewBox="0 0 32 32">
-                                <use xlink:href="#tag"></use>
-                            </svg>
-                        </div>
-                        <a href="#/categories">categories</a>
-                    </li>
-                    <li id="menu-item-statistics" class="menu-item">
-                        <div class="menu-item-icon">
-                            <svg viewBox="0 0 32 32">
-                                <use xlink:href="#pie"></use>
-                            </svg>
-                        </div>
-                        <a href="#/statistics">statistics</a>
-                    </li>
-                </menu>
-            </div>
+                <div id="menu-header"></div>
 
-            <div id="menu-footer">
-                some contact info
+                <div id="menu-items">
+                    <menu>
+                        <li id="menu-item-expenses" class="menu-item">
+                            <div class="menu-item-icon">
+                                <svg viewBox="0 0 32 32">
+                                    <use xlink:href="#list"></use>
+                                </svg>
+                            </div>
+                            <a href="#/expenses">expenses</a>
+                        </li>
+                        <li id="menu-item-categories" class="menu-item">
+                            <div class="menu-item-icon">
+                                <svg viewBox="0 0 32 32">
+                                    <use xlink:href="#tag"></use>
+                                </svg>
+                            </div>
+                            <a href="#/categories">categories</a>
+                        </li>
+                        <li id="menu-item-statistics" class="menu-item">
+                            <div class="menu-item-icon">
+                                <svg viewBox="0 0 32 32">
+                                    <use xlink:href="#pie"></use>
+                                </svg>
+                            </div>
+                            <a href="#/statistics">statistics</a>
+                        </li>
+                    </menu>
+                </div>
+
+                <div id="menu-footer"></div>
+
             </div>
         </div>
 

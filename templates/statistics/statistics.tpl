@@ -1,3 +1,4 @@
-<p>
-    statistics
-</p>
+<pre>
+    coming soon...
+</pre>
+

@@ -143,3 +143,43 @@
     -o-user-select:      @type;
     user-select:         @type;
 }
+// Shows content of data-title attribute styled nice
+// top and left used to control position of arrow of tooltip
+//
+// Recommendation: inlude this mixin before your rules, because it sets position of parent to relative
+.fancy-title(@top: 0, @left: 0){
+    position: relative;
+    &:after, &:before {
+        visibility: hidden;
+        position: absolute;
+        opacity: 0;
+        font-family: Helvetica, Arial, sans-serif;
+        font-size: 16px;
+        line-height: 18px;
+        .transition(.2s);
+    }
+
+    &:after {
+        content: ' ';
+        top: -@top - 6px;
+        left: @left - 6px;
+        border: solid 6px transparent;
+        border-top-color: rgba(0,0,0,.7);
+    }
+
+    &:before {
+        content: attr(data-title);
+        background: rgba(0,0,0,.7);
+        color: #fff;
+        padding: 2px 4px;
+        white-space: nowrap;
+        border-radius: 2px;
+        top: -@top - 28px; // line-height + paddings + arrow size
+        left: @left - 12px;
+    }
+
+    &:hover:after, &:hover:before {
+        visibility: visible;
+        opacity: 1;
+    };
+}

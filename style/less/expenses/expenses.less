@@ -1,93 +1,104 @@
+@import 'expenses.new.less';
+@import 'bootstrap/mixins';
+@import 'bootstrap/variables';
+@import 'bootstrap/grid';
 #expenses-content {
-    #add-expense-wrapper {
-        clear: both;
-        overflow: auto;
+    width: auto;
+    overflow: auto;
+}
 
-        #button-add-expense {
-            margin: 10px;
-            float: right;
+#expenses-list {
+    margin: 0;
+    .expense-item {
+        .clearfix();
+        min-height: 9em;
+        padding: 10px;
+        margin: 10px -10px;
+        position: relative;
+        background-color: #FCFCFC;
+        .border-radius(3px);
+        border: solid 1px #ccc;
+
+        &:nth-child(odd){
+            margin-right: 0;
         }
+        .amount {
+            width: 75%;
+            float: left;
+            font-family: 'Raleway', sans-serif;
+            font-size: 3em;
+            font-weight: 100;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .category-icon{
+            .fancy-title(20px, 0);
+            position: absolute;
+            top: -1px;
+            right: 40px;
+            height: 70px;
+            border-style: solid;
+            border-width: 20px;
+            border-color: transparent;
+            border-bottom-color: rgba(0, 0, 0, 0) !important;
+        }
+        .options-wrapper{
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 12px;
+            height: 14px;
+            overflow: hidden;
+            cursor: pointer;
+            z-index: 100;
 
-        #add-expense-container {}
-    }
-
-    #expenses-list {
-        width: 80%;
-        max-width: 800px;
-        margin: 10px auto;
-        border-spacing: 0;
-        border-collapse: collapse;
-
-        .expense-item {
-            padding: 10px 15px;
-            margin: 5px 0 0 0;
-            display: inline-block;
-            width: 350px;
-            height: 200px;
-            background-color: #fcfcfc;
-
-            &:nth-child(odd){
-                margin-right: 15px;
+            .arrow{
+                width: 0;
+                height: 0;
+                border: solid 6px transparent;
+                border-top: 10px solid grey;
             }
-            .amount {
-                width: 55%;
-                font-size: 2.5em;
-                float: left;
-            }
-            .category-icon{
-                float: left;
-                width: 30%;
-                height: 45%;
-                margin: -10px 0 0 0;
-            }
-            .options-wrapper{
-                float: right;
-                width: 25px;
-                height: 14px;
-                overflow: hidden;
 
-                .arrow{
-                    width: 0;
-                    height: 0;
-                    border-left: 10px solid transparent;
-                    border-right: 10px solid transparent;
-                    border-top: 15px solid grey;
-                }
+            &:hover{
+                height: auto;
+                overflow: visible;
+            }
 
+            .options{
+                width: 80px;
+                position: relative;
+                top: -2px;
+                left: -67px;
+                border: 1px solid #cfcfcf;
+                .border-radius(2px);
+                background: #fcfcfc;
+                cursor: pointer;
+            }
+            .option{
+                padding: 2px 4px;
                 &:hover{
-                    height: auto;
-                    overflow: visible;
-                }
-
-                .options{
-                    width: 80px;
-                    position: relative;
-                    top: 5px;
-                    left: 10px;
-                    border: 1px solid #cfcfcf;
-                    background: #fcfcfc;
-                    cursor: pointer;
-                }
-                .option{
-                    padding: 2px 4px;
-                    &:hover{
-                        background: #efefef;
-                    }
+                    background: #efefef;
                 }
             }
-            .title{
-                float: left;
-                width: 100%;
-                min-height: 3em;
-                margin: 0.25em 0;
-            }
-            .date {
-                float: left;
-                width: 100%;
-                bottom: 0;
-                text-align: right;
-            }
+        }
+        .title{
+            float: left;
+            width: 100%;
+            min-height: 1.5em;
+            line-height: 1.5em;
+            margin: 1em 0 0.25em;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .date {
+            float: left;
+            width: 100%;
+            bottom: 0;
+            text-align: right;
+            font-size: 0.925em;
+            font-style: italic;
+            color: #777;
         }
     }
 }
-

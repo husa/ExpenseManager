@@ -2,16 +2,13 @@ define([
     'underscore',
     'backbone.marionette',
     'views/expenses/expense',
+    'views/expenses/expense.new',
     'views/expenses/expenses.empty',
     'text!templates/expenses/expenses.tpl'
-], function(_, Marionette, ExpenseView, ExpensesEmptyView, Template) {
+], function(_, Marionette, ExpenseView, NewExpenseView, ExpensesEmptyView, Template) {
     'use strict';
 
     return Marionette.CompositeView.extend({
-
-        events : {
-            'click #button-add-expense' : 'addExpense'
-        },
 
         template : _.template(Template),
 
@@ -21,8 +18,8 @@ define([
 
         emptyView : ExpensesEmptyView,
 
-        addExpense : function() {
-            console.log('add expense');
+        onShow: function() {
+            this.newExpense = new NewExpenseView().render();
         }
     });
 });

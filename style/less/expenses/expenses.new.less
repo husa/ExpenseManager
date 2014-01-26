@@ -1,0 +1,218 @@
+#add-expense-wrapper {
+    clear: both;
+    width: 100%;
+    max-width: 450px;
+    margin: 20px auto;
+    background-color: #FCFCFC;
+    box-sizing: border-box;
+    .border-radius(3px);
+    border: solid 1px #ccc;
+
+
+    .input-container {
+        padding: 20px 10px;
+        overflow: auto;
+
+        & > * {
+            display: inline-block;
+            float: left;
+            margin: 3px;
+            vertical-align: top;
+            box-sizing: border-box;
+        }
+
+        input {
+            padding: 6px;
+            color: #444;
+            outline: none;
+            border-style: solid;
+            border-width: 1px;
+            border-color: #BFC3DA;
+            border-radius: 4px;
+
+            &:focus {
+                border-color: #7E8FE0;
+                box-shadow: 0 0 0 1px #7E8FE0;
+            }
+        }
+
+        #expense-new-amount {
+
+        }
+        #expense-new-title {
+
+        }
+
+        #expense-new-date {
+            display: none;
+        }
+
+        .fancy-select {
+            border: none;
+            outline: none;
+
+            .trigger {
+                height: 100%;
+                width: 100%;
+                min-width: 150px;
+                color: #444;
+                padding: 4px 6px;
+                padding-right: 20px;
+                box-sizing: border-box;
+                background: none;
+                border: solid 1px #BFC3DA;
+                border-radius: 4px;
+                outline: none;
+                box-shadow: none;
+
+                &:after {
+                    top: 46%;
+                    right: 4px;
+                }
+                &.open, &:focus, &:active {
+                    border-color: #7E8FE0;
+                    box-shadow: 0 0 0 1px #7E8FE0;
+                }
+            }
+
+            .options {
+                top: 45px;
+                color: #444;
+                background: #fff;
+                border: solid 1px;
+                border-top: solid 1px;
+                border-color: #7E8FE0;
+                box-shadow: none;
+                z-index: -1;
+
+                li {
+                    color: inherit;
+                }
+
+                &.open {
+                    z-index: 50;
+                }
+                .hover {
+                    background-color: rgba(126, 143, 224, .5);
+                    color: #fff;
+                }
+                .selected {
+                    background-color: rgba(126, 143, 224, .9);
+                    color: #fff;
+                }
+            }
+
+            .category-icon, .category-title {
+                vertical-align: middle;
+            }
+            .category-icon {
+                display: inline-block;
+                width: 20px;
+                height: 20px;
+                border: none;
+            }
+
+            .category-title {
+                padding-left: 10px;
+            }
+        }
+
+        .pika-single {
+            z-index: auto;
+            background: none;
+            border: none;
+            padding: 0;
+
+            .pika-label {
+                z-index: auto;
+                background: none;
+            }
+
+            td {
+
+                &:hover .pika-button {
+                    background-color: #7E8FE0;
+                    border-radius: 100%;
+                    color: #fff;
+                }
+
+                &.is-selected .pika-button {
+                    background-color: #7E8FE0;
+                    box-shadow: none;
+                    border-radius: 100%;
+                    color: #fff;
+                }
+
+                &.is-today .pika-button{
+                    color: #7E8FE0;
+                }
+
+                &.is-today.is-selected .pika-button {
+                    color: #fff;
+                }
+
+                .pika-button {
+                    width: 25px;
+                    height: 25px;
+                    text-align: center;
+                    padding: 5px;
+                    background: none;
+                }
+            }
+        }
+
+        .invalid {
+            border-color: #EC7063;
+            background-color: rgba(236, 112, 99, .4);
+        }
+    }
+
+    .button-container {
+        padding: 10px;
+        text-align: center;
+        background: #f8f8f8;
+        border-top: solid 1px #ccc;
+
+        #expense-new-save {
+            background-color: #2ECC71;
+            border-color: #58D68D;
+
+            &:hover, &:focus, &:active {
+                background-color: #58D68D;
+                box-shadow: none;
+            }
+        }
+
+        #expense-new-clear {
+            background-color: #E74C3C;
+            border-color: #E74C3C;
+
+            &:hover, &:focus, &:active {
+                background-color: #EC7063;
+                box-shadow: none;
+            }
+        }
+    }
+
+        // #button-add-expense {
+        //     margin: 10px;
+        //     float: right;
+        // }
+
+        // #add-expense-container{
+        //     float: right;
+        //     margin: 7px 17px 0 0;
+
+        //     input,
+        //     select{
+        //         font-size: 1em;
+        //         padding: 8px 10px;
+        //         border: 1px solid lighten(grey, 25%);
+        //         border-radius: 3px;
+        //     }
+        //     input[type=date]{
+        //         padding: 6px 17px 3px 17px;
+        //     }
+        // }
+
+    }

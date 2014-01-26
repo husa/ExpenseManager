@@ -14,7 +14,6 @@ define([
         // save all expences as "expences" namespace in Local Storage
         localStorage : new Backbone.LocalStorage('expenses'),
 
-
         // filter all expences by category
         filter : function(category) {
             return this.filter(function(expense){

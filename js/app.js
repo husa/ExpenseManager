@@ -5,7 +5,7 @@ define(['backbone.marionette'], function(Marionette) {
     App.addRegions({
         contentRegion       : '#content',
         contentHeaderRegion : '#content-header',
-        menuRegion          : '#menu-items'
+        menuRegion          : '#main-menu-region'
     });
 
     return App;

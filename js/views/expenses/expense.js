@@ -3,15 +3,17 @@ define([
     'underscore',
     'backbone',
     'backbone.marionette',
-    'text!templates/expenses/expense.tpl'],
-    function($, _, Backbone, Marionette, Template) {
+    'models/expense',
+    'collections/categories',
+    'text!templates/expenses/expense.tpl'
+], function($, _, Backbone, Marionette, Expense, CategoriesCollection, Template) {
     'use strict';
 
     return Marionette.ItemView.extend({
 
         tagName : 'div',
 
-        className : 'expense-item',
+        className : 'col-xs-12 col-sm-6 col-md-4 col-lg-3',
 
         template : _.template( Template ),
 
@@ -20,46 +22,17 @@ define([
         },
 
         initialize : function() {
-            this.listenTo(this.model, 'destroy',this.remove);
+            this.listenTo(this.model, 'destroy', this.remove);
         },
 
         render : function() {
-            var date = this.transformDate(this.model.get('date')),
-                modelObj = _.extend(this.model.toJSON(), {'date' : date});
-
-            this.$el.html( this.template(modelObj) );
+            this.$el.html( this.template({ data: this.model.toJSON() }) );
 
             return this;
-        },
-
-        transformDate : function(JSONdate) {
-            var date = new Date(JSONdate),
-                m;
-
-            return date.toDateString() + ' ' +
-                date.getHours() + ':' +
-                ((m = date.getMinutes()) < 10 ? '0' + m : m);
-        },
-
-        edit : function(e) {
-            var target = $(e.target),
-                dimensions = {
-                    width : target.width(),
-                    height : target.height(),
-                    offset : target.offset()
-                },
-                input = $('<input>').
-                            height(dimensions.height).
-                            width(dimensions.width).
-                            offset(dimensions.offset);
-
-
-            target.replaceWith(input);
         },
 
         delete : function() {
             this.model.destroy();
         }
-
     });
 });
