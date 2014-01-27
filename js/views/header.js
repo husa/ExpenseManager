@@ -19,17 +19,20 @@ define([
             console.log('sign in');
         },
 
-        toggleMenu : function() {
+        onRender : function() {
             var root = this;
 
             Backbone.Events.
-            trigger('menu:toggle').
             on('menu:open', function() {
                 root.$('#menu-open-button').addClass('opened');
             }).
             on('menu:close', function() {
                 root.$('#menu-open-button').removeClass('opened');
             });
+        },
+
+        toggleMenu : function() {
+            Backbone.Events.trigger('menu:toggle');
         }
 
     });

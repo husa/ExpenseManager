@@ -18,6 +18,7 @@ define([
         initialize : function(options) {
             this.$parent = options.parent;
             this.opened  = false;
+            this.$overlay = $('<div class="overlay" />').hide();
 
             Backbone.Events.on('menu:toggle',  this.toggle, this);
         },
@@ -39,19 +40,29 @@ define([
                 }
             });
 
+            //append hidden overlay to content-wrapper
+            this.$parent.siblings().append(this.$overlay);
 
+            this.$overlay.on('click', function() {
+                if (root.opened) {
+                    root.close();
+                }
+            });
         },
 
         select : function(section) {
             this.$('.' + this.config.selectedClass).removeClass(this.config.selectedClass);
             this.$('#menu-item-' + section).addClass(this.config.selectedClass);
 
-            this.close();
+            if (this.opened) {
+                this.close();
+            }
         },
 
         open : function() {
             this.opened = true;
             this.$parent.removeClass(this.config.closeClass).addClass(this.config.openClass);
+            this.$overlay.show();
 
             Backbone.Events.trigger('menu:open');
         },
@@ -59,6 +70,7 @@ define([
         close : function() {
             this.opened = false;
             this.$parent.removeClass(this.config.openClass).addClass(this.config.closeClass);
+            this.$overlay.hide();
 
             Backbone.Events.trigger('menu:close');
         },

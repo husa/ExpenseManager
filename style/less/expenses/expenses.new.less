@@ -19,6 +19,14 @@
             margin: 3px;
             vertical-align: top;
             box-sizing: border-box;
+
+            @media (max-width: @screen-desktop) {
+                display: block;
+                clear: both;
+                float: none;
+                width: 90%;
+                margin: 5px auto;
+            }
         }
 
         input {

@@ -7,7 +7,7 @@ module.exports = function(grunt) {
     less : {
         development : {
             options: {
-                compress          : true,
+                // compress          : true,
                 sourceMap         : true,
                 sourceMapFilename : 'main.css.map'
             },
@@ -69,6 +69,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   // Default task(s).
-  grunt.registerTask('default', ['connect', 'watch']);
+  grunt.registerTask('default', ['connect', 'less', 'watch']);
 
 };
