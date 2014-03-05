@@ -2,25 +2,27 @@ define([
     'underscore',
     'backbone',
     'backbone.marionette',
-    'text!templates/header.tpl'
-], function(_, Backbone, Marionette, Template) {
+    'views/header/header.user.auth',
+    'text!templates/header/header.tpl'
+], function(_, Backbone, Marionette, UserAuthView, Template) {
     'use strict';
 
     return Marionette.ItemView.extend({
 
         events : {
-            'click #sign-in-button'   : 'signIn',
             'click #menu-open-button' : 'toggleMenu'
         },
 
         template : _.template(Template),
 
-        signIn : function() {
-            console.log('sign in');
+        initialize : function() {
+            this.userAuth = new UserAuthView();
         },
 
         onRender : function() {
             var root = this;
+
+            this.renderUserAuth();
 
             Backbone.Events.
             on('menu:open', function() {
@@ -33,6 +35,10 @@ define([
 
         toggleMenu : function() {
             Backbone.Events.trigger('menu:toggle');
+        },
+
+        renderUserAuth : function() {
+            this.$('#user-stuff').html(this.userAuth.render().el);
         }
 
     });

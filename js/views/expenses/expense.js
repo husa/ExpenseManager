@@ -52,15 +52,22 @@ define([
 
             // on click anywhere except "undo" actually destroy the model
             e.stopPropagation();
-            $(document).one('click.delete-expense', function() {
+            $(document).on('click.delete-expense', function() {
+                $(document).off('click.delete-expense');
                 root.model.destroy();
             });
         },
 
-        edit : function() {},
+        edit : function() {
+            debugger;
+        },
 
         toggleOptions : function() {
             this.$('.options-wrapper').toggleClass('opened');
+        },
+
+        remove : function() {
+            Marionette.ItemView.prototype.remove.call(this);
         }
     });
 });

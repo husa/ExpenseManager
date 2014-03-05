@@ -13,7 +13,7 @@ define(['zepto',
         'views/categories/categories',
         'views/statistics/statistics',
 
-        'views/header',
+        'views/header/header',
         'views/menu/menu'
 ], function($, _, Backbone, Marionette, defaults, App, ExpensesCollection, CategoriesCollection, ExpensesView, CategoriesView, StatisticsView, HeaderView, MenuView) {
     'use strict';
@@ -95,6 +95,10 @@ define(['zepto',
                 });
             }
         },
+
+        loginUser : function(url) {
+            Backbone.Events.trigger('user:login', url);
+        }
     });
 
     return new Controller();

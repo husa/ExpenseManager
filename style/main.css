@@ -1,3 +1,5 @@
+@import url(http://fonts.googleapis.com/css?family=Raleway:400,700);
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,300,700);
 .button {
   position: relative;
   background-color: #323544;
@@ -224,15 +226,28 @@
     display: none;
   }
 }
-#content-header .button {
+#content-header #user-stuff {
   margin: 10px;
   float: right;
+}
+#content-header #user-stuff * {
+  vertical-align: middle;
+}
+#content-header #user-stuff button {
   background: #DD4B39;
 }
-#content-header .button:hover {
+#content-header #user-stuff button:hover {
   -moz-box-shadow: 0px 0px 4px 0px #dd4b39 inset;
   -webkit-box-shadow: 0px 0px 4px 0px #dd4b39 inset;
   box-shadow: 0px 0px 4px 0px #dd4b39 inset;
+}
+#content-header #user-stuff .user-image {
+  width: 42px;
+  height: 42px;
+  border-radius: 100%;
+}
+#content-header #user-stuff .user-name {
+  font-weight: lighter;
 }
 #add-expense-wrapper {
   clear: both;
@@ -1120,6 +1135,9 @@
 #expenses-list .expense-item:after {
   clear: both;
 }
+#expenses-list .expense-item.delete {
+  opacity: .2;
+}
 #expenses-list .expense-item:nth-child(odd) {
   margin-right: 0;
 }
@@ -1195,7 +1213,7 @@
   border: solid 6px transparent;
   border-top: 10px solid grey;
 }
-#expenses-list .expense-item .options-wrapper:hover {
+#expenses-list .expense-item .options-wrapper.opened {
   height: auto;
   overflow: visible;
 }
@@ -1238,6 +1256,26 @@
   font-size: 0.925em;
   font-style: italic;
   color: #777;
+}
+#expenses-list .expense-item .delete-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  padding-top: 30px;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 50;
+  text-align: center;
+  color: #fff;
+  fill: #fff;
+  cursor: pointer;
+}
+#expenses-list .expense-item .delete-overlay svg {
+  display: block;
+  margin: 0 auto;
+  width: 48px;
+  height: 48px;
 }
 #categories-content #add-category-wrapper {
   clear: both;
@@ -1751,7 +1789,7 @@ body {
   outline: none;
   background-color: #f2f2f2;
   overflow: hidden;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Roboto', Helvetica, Arial, sans-serif;
   font-size: 1em;
   color: #444;
 }
