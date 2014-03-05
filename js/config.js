@@ -9,6 +9,7 @@ var require = {
         'backbone.marionette'   : 'vendor/backbone.marionette',
         'backbone.localStorage' : 'vendor/backbone.localStorage',
         'text'                  : 'vendor/require.text',
+         async                 : 'vendor/require.async',
         'fancy.select'          : 'vendor/fancySelect',
         'pikaday'               : 'vendor/pikaday',
         'snap.svg'              : 'vendor/snap.svg',
