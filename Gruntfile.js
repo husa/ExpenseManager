@@ -5,11 +5,20 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
 
     less : {
+        options: {
+            sourceMap         : true,
+            sourceMapFilename : 'main.css.map'
+        },
+
         development : {
-            options: {
-                // compress          : true,
-                sourceMap         : true,
-                sourceMapFilename : 'main.css.map'
+            files: {
+                "style/main.css": "style/less/main.less"
+            }
+        },
+
+        build : {
+            options : {
+                compress : true
             },
             files: {
                 "style/main.css": "style/less/main.less"
@@ -23,7 +32,7 @@ module.exports = function(grunt) {
         },
         styles : {
             files: ['**/*.less'],
-            tasks : ['less']
+            tasks : ['less:development']
         },
         js : {
             files : ['js/**/*.js'],
@@ -44,7 +53,8 @@ module.exports = function(grunt) {
                     define     : false,
                     console    : false,
                     window     : false,
-                    document   : false
+                    document   : false,
+                    gapi       : false
                 }
             },
             files : {
@@ -69,6 +79,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   // Default task(s).
-  grunt.registerTask('default', ['connect', 'less', 'watch']);
+  grunt.registerTask('default', ['connect', 'less:development', 'watch']);
+  grunt.registerTask('build', ['less:build']);
 
 };
